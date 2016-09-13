@@ -2,7 +2,6 @@ const safe = require('dotenv').config()
 const fs = require("fs");
 const request = require('request');
 
-
 module.exports = {
 
   downloadImageByURL: function(url, filePath) {
@@ -25,18 +24,17 @@ module.exports = {
     var req = request(options, function(err, data) {
       if (err) {
         console.log(err);
-        return;
-
-      } else {
-        writeWithExtension(data.headers['content-type'].split('/')[1]);
+        return false;
       }
+      //Adding format to image eg .png
+      writeWithExtension(data.headers['content-type']);
     });
 
     var writeStream = fs.createWriteStream(filePath);
     req.pipe(writeStream);
 
     function writeWithExtension(extension) {
-      fs.renameSync(filePath, filePath + "." + extension)
+      fs.renameSync(filePath, filePath + "." + extension.split('/')[1]);
     }
   }
 
