@@ -1,6 +1,7 @@
+const safe = require('dotenv').config()
 const request = require('request');
-const endPoint = 'http://api.github.com'
 const images = require("./images.js");
+const endPoint = 'http://api.github.com'
 
 module.exports = {
 
@@ -11,8 +12,8 @@ module.exports = {
         'User-Agent': 'request'
       },
       'auth':{
-        'user': 'SpencerTranter',
-        'pass': '61c1743a64f3cd449522ba6ec00c5d6dad3f3b5b'
+        'user': process.env.GIT_USER,
+        'pass': process.env.GIT_KEY
       },
       json: true
     }
